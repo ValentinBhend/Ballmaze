@@ -5,7 +5,7 @@ The .scad source file scripts have gotten really messy over time. So if you want
 
 The printplates are also available as .3mf files here. 
 
-**Some remarks on the different models:**
+<ins>**Some remarks on the different models:**</ins>
 
 **CLIP**: This is a slightly modified version of the part "Clip-On-2DOF-Joint (no torsion)" shared by the user "mechadense" on thingyverse: [https://www.thingiverse.com/thing:5533090](https://www.thingiverse.com/thing:5533090). It us licenced under the [Attribution-ShareAlike 3.0 Unported](https://creativecommons.org/licenses/by-sa/3.0/) and therefore also my version is. <br>
 It is great, it allows tilting the maze without allowing it to rotate. 
