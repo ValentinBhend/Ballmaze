@@ -15,3 +15,5 @@ It is great, it enables tilting the maze without allowing it to rotate.
 **MAZE**: The maze is best printed with ironing enabled on top-surfaces for a smooth surface (might need advanced/expert options enabled). <br>
 There is an empty maze without holes which can be useful for testing or learning the exact dynamics of the system. <br>
 The maze layout can be modified with the lists "hole_coords, wall_coords_h, wall_coords_v and corner_coords" in the config.scad file
+
+**all.scad** this shows the whole thing, don't try to print it :)
