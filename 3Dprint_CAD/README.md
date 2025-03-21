@@ -12,6 +12,6 @@ It is great, it enables tilting the maze without allowing it to rotate.
 
 **HOLDER**: This is the only part with sketchy overhangs and a lot of bridges. It might be safer to print the camera-holder-triangle on top seperately and in a different orientation, then glue it on. But it has worked for me as a single part. 
 
-**MAZE**: The maze is best printed with ironing enabled for a smooth surface (might need advanced/expert options enabled). <br>
+**MAZE**: The maze is best printed with ironing enabled on top-surfaces for a smooth surface (might need advanced/expert options enabled). <br>
 There is an empty maze without holes which can be useful for testing or learning the exact dynamics of the system. <br>
 The maze layout can be modified with the lists "hole_coords, wall_coords_h, wall_coords_v and corner_coords" in the config.scad file
