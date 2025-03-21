@@ -1,4 +1,5 @@
 include <config.scad>;
+use <picam_slot.scad>;
 
 module circ_arch(){
     s = plate_sidelength;
@@ -79,31 +80,15 @@ module straight_arch_camhole(){
     scale_fit = 1.05;
     difference(){
         straight_arch();
-        translate([s/2-12,12.5,hc-4])
-        translate([0,12.5*(scale_fit-1)])
-        scale(scale_fit)
-        cam();
+        translate([s/4,-s/4,hc-20])
+        cube([s/2,s/2,100]);
     }
+    
+    translate([s/4+28,0,hc-20])
+    Cam_Top();
     //translate([s/2-12,12.5,hc-4])
     //cam();
 }
 
 straight_arch_camhole();
 //cam();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
