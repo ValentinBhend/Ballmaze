@@ -1,7 +1,7 @@
 I used a RaspberryPi Zero 2w, so Pi 3,4 or 5 should work too. Or any other single-board computer should work if it has the features I use from the RaspberryPi: <br>
 - 2 Hardware PWMs to control the servos. (Software PWMs, at least on my Pi are hot garbage)
 - Connection to the camera (Picam Zero v1.3 in my case)
-- Enough computation power to run 4fps object detection on 128x128 images.
+- Enough computation power to run 4fps object detection on at least 128x128 images.
 - Connection to a PC (SSH over LAN in my case, USB also possible)
 
 #### RaspberryPi Setup
