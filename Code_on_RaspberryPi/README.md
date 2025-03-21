@@ -5,7 +5,7 @@ I used a RaspberryPi Zero 2w, so Pi 3,4 or 5 should work too. Or any other singl
 - Connection to a PC (SSH over LAN in my case, USB also possible)
 
 #### RaspberryPi Setup
-A more comprehensive guide can be found on the official website: [RaspberryPi - Getting started](https://www.raspberrypi.com/documentation/computers/getting-started.html)
+A more comprehensive, general guide can be found on the official website: [RaspberryPi - Getting started](https://www.raspberrypi.com/documentation/computers/getting-started.html)
 1. Download the RaspberryPi Imager here: [https://www.raspberrypi.com/software/](https://www.raspberrypi.com/software/)
 2. Choose any Pi OS, I choose the Legacy Lite version. Lite means no GUI which might make it a little faster but creates more pain of anything goes wrong.
 3. Enable SSH and give it the local Wi-Fi credentials (I had problems with my router so used my phone mobile-hotspot instead).
