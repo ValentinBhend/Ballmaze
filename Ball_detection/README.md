@@ -5,5 +5,5 @@ To train it differently or with another dataset, the whole trianing and exportin
 
 There are currently ~2000 labeled images with a ball and another ~3000 empty images. <br>
 The labeled dataset can be found at: [https://www.kaggle.com/datasets/valentinbhend/ballmaze-labeled-images](https://www.kaggle.com/datasets/valentinbhend/ballmaze-labeled-images) <br>
-The labels are axis-aligned bounding boxes of the metal ball and were made using Label Studio. 
+The labels are axis-aligned bounding boxes of the metal ball and were made using Label Studio.
 
