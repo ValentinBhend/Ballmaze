@@ -11,6 +11,8 @@ This joint is
 - resistant against torsion
 - resistant against pressure
 - not very resistant against tension
+
+--- Slighly edited from the original
 */
 
 use <CLIP.scad>
