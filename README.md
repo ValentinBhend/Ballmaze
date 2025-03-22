@@ -34,7 +34,7 @@ Most parts can be replaced by similar ones or whatever you might already have.
 ... some pictures & stuff ...
 
 ### Software setup
-How to set up the RaspberryPi is described in [Code_on_raspberryPi/README.md](Code_on_raspberryPi) <br>
+How to set up the RaspberryPi is described in [Code_on_RaspberryPi/README.md](Code_on_RaspberryPi/README.md) <br>
 
 To get the code on your PC running, first download the Repo as a .zip and unpack or clone it to a local folder. <br>
 There are requirements.txt files in the respective folders, which were generated with Python 3.12.3. Those might not work exactly the same in the future. 
