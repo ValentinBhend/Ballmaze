@@ -1,0 +1,11 @@
+names:
+- Ball
+nc: 1
+train:
+- dataset_128/images/train
+- dataset_480_1/images/train
+- dataset_480/images/train
+val:
+- dataset_128/images/val
+- dataset_480_1/images/val
+- dataset_480/images/val
