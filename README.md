@@ -1,7 +1,7 @@
 # Ballmaze
 This project is showcased in ...add link to yt-video/channel...
 
-The goal is to automize playing the ballmaze dexterity game. There are quite a few challanges in this and a lot of things can be improved from the current solution. 
+The goal is to autoate playing the ballmaze dexterity game. There are quite a few challanges in this and a lot of things can be improved from the current solution. 
 
 <p align="center">
   <img src="./docs/wood_maze.gif" width="45%" />
@@ -10,8 +10,8 @@ The goal is to automize playing the ballmaze dexterity game. There are quite a f
 
 ## Want to build one yourself?
 
-I'll try my best to give some instructions here, but some previous experience with a RaspberryPi or similar and a little experience in programming in python would surely help :) And of couse a great interest in robotics/machine learning <br>
-In total the materials cost about 50 - 90$/€ depending on whether you or someone you know has a 3D printer or you order the 3D print parts from somewhere. 
+I'll try my best to give some instructions here, but some previous experience with a RaspberryPi or similar and a little experience in programming in python would surely help. And of couse a great interest in robotics/machine learning :) <br>
+In total the materials cost about 50 - 90 $/€ depending on whether you or someone you know has a 3D printer or you order the 3D print parts from somewhere. 
 
 ### List of materials
 Most parts can be replaced by similar ones or whatever you might already have. 
@@ -28,13 +28,13 @@ Most parts can be replaced by similar ones or whatever you might already have.
 | 2x Nuts & bolts...                                | xx                 | [1]() |
 | 3D printed Parts (~300g PLA/PETG)                 | 6 - 45             | [1](https://www.sculpteo.com) [2](https://craftcloud3d.com/) [3](https://jlc3dp.com/3d-printing-quote) |
 
-***If you built this, please send me a link to where you bought the parts, so I can add them to the table.***
+*If you built this, please send me a link to where you bought the parts, so I can add them to the table.*
 
 ### Physical setup
 ... some pictures & stuff ...
 
 ### Software setup
-How to set up the RaspberryPi is described in [Code_on_raspberryPi/README.md](Code_on_raspberryPi/README.md) <br>
+How to set up the RaspberryPi is described in ![Code_on_raspberryPi/README.md](Code_on_raspberryPi/README.md) <br>
 
 To get the code on your PC running, first download the Repo as a .zip and unpack or clone it to a local folder. <br>
 There are requirements.txt files in the respective folders, which were generated with Python 3.12.3. Those might not work exactly the same in the future. 
