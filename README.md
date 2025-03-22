@@ -11,7 +11,7 @@ The goal is to automate playing the ballmaze dexterity game. There are quite a f
 ## Want to build one yourself?
 
 I'll try my best to give some instructions here, but some previous experience with a RaspberryPi or similar and a little experience in programming in python would surely help. And of couse a great interest in robotics/machine learning :) <br>
-In total the materials cost about 50 - 90 $/€ depending on whether you or someone you know has a 3D printer or you have to order the 3D printed parts from somewhere. 
+In total the materials cost about 50 - 90 $/€ depending on whether you or someone you know has a 3D printer, or you have to order the 3D printed parts from somewhere. 
 
 ### List of materials
 Most parts can be replaced by similar ones or whatever you might already have. 
