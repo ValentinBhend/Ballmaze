@@ -44,7 +44,7 @@ if not installed: `sudo apt install python3-venv` <br>
 `python3 -m venv .venv` <br>
 `source .venv/bin/activate` <br>
 `pip install -r requirements.txt` <br>
-On Windows/Mac it would be similar, see here: [https://docs.python.org/3/library/venv.html](https://docs.python.org/3/library/venv.html). Or install the python packages manually.
+Alternatively you can also install the Python packages manually.
 
 ### RaspberryPi setup
 I used a RaspberryPi Zero 2w, so Pi 3,4 or 5 should work too. Or any other single-board computer should work if it has the features I use from the RaspberryPi: <br>
