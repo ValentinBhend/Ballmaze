@@ -8,12 +8,12 @@ The goal is to automize playing the ballmaze dexterity game. There are quite a f
   <img src="./docs/my_maze.gif" width="45%" />
 </p>
 
-### Want to build one yourself?
+## Want to build one yourself?
 
 I'll try my best to give some instructions here, but some previous experience with a RaspberryPi or similar and a little experience in programming in python would surely help :) And of couse a great interest in robotics/machine learning <br>
 In total the materials cost about 50 - 90$/€ depending on whether you or someone you know has a 3D printer or you order the parts from somewhere. 
 
-#### List of materials
+### List of materials
 Most parts can be replaced by similar ones or whatever you might already have. 
 
 | Part                                              | Price ($/€ approx) | Where to buy |
@@ -30,10 +30,10 @@ Most parts can be replaced by similar ones or whatever you might already have.
 
 ***If you built this, please send me a link to where you bought the parts, so I can add them to the table.***
 
-#### Physical setup
+### Physical setup
 ... some pictures & stuff ...
 
-#### Software setup
+### Software setup
 How to set up the RaspberryPi is described in [Code_on_raspberryPi/README.md](Code_on_raspberryPi/README.md) <br>
 
 To get the code on your PC running, first download the Repo as a .zip and unpack or clone it to a local folder. <br>
@@ -47,7 +47,7 @@ if not installed: `sudo apt install python3-venv` <br>
 `pip install -r requirements.txt` <br>
 On Windows/Mac it would be similar, see here: [https://docs.python.org/3/library/venv.html](https://docs.python.org/3/library/venv.html). Or install the packages manually. 
 
-#### Check setup
+### Check setup
 Now put the empty maze-plate in and put a metal ball on it. Then run the script `check_everything_PC.py` on the PC and `check_everything_Pi.py` on the Pi while connected to the same Wi-Fi. <br>
 If anything from the setup except the Pi and PC is missing, no worries, it will just test the rest. 
 
