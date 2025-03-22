@@ -79,7 +79,7 @@ The sort of end goal is to come up with an algorithm which will train on one or 
 
 ### Attempt 1 - SAC with 4 state variables
 *Not the first appempt, but the first one that sort of worked :)* <br>
-I used the RL (reinforcement learning) algorith SAC (Soft Actor-Critic) to control the ball. The algorithm just gets the current ball position on the maze (x,y in 0...1) and the current tilt angle of the maze ($\theta_x$, $\theta_y$ in -1...1) and a reward. It then can change the two angles up to a maximum of a fixed portion of the max-angle. It gets a reward if the current position if further trough the maze than it was before. It gets punished/negative reward for falling in a hole and then some smaller adjustments. 
+I used the RL (reinforcement learning) algorith SAC (Soft Actor-Critic) to control the ball. The algorithm just gets the current ball position in the maze (x,y in 0...1), the current tilt angle of the maze ($\theta_x$, $\theta_y$ in -1...1), and a reward. It then can change the two angles up to a maximum of a fixed portion of the max-angle. It gets a reward if the current position is further trough the maze than it was before in this episode. It gets punished/negative reward for falling in a hole and then some smaller adjustments. 
 
 ### Attempt 2 - SAC with CNN + 4 variables state-space
 ...
