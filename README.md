@@ -26,7 +26,8 @@ Most parts can be replaced by similar ones or whatever you might already have.
 | 1x USB Cable to power Pi (micro USB for Pi Zero)  | 2                  | [1](https://www.mouser.ch/ProductDetail/530-SC-2AMK003F) |
 | A few metal balls with diameter ~6mm              | 5                  | [1](https://www.amazon.com/0-236-Precision-Chrome-Steel-Bearing/dp/B07L8MLK2N) |
 | 3D printed Parts (~300g PLA/PETG)                 | 5 - 40             | [1](https://www.sculpteo.com) [2](https://craftcloud3d.com/) [3](https://jlc3dp.com/3d-printing-quote) |
-| 4x Screws & nuts for the servos                   |                    | included or hardware store |
+| Some cables + soldering iron would be<br>useful to connect the servos (not required) |                    |  |
+| 2x Googly eyes (strictly required) |                    |  |
 
 *If you built this, please send me a link to where you bought the parts, so I can add them to the table.*
 
