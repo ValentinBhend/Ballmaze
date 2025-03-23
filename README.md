@@ -75,20 +75,22 @@ Now slide the empty-maze-plate in and put a metal ball on it. Then run the scrip
 If anything from the setup except the Pi and PC is missing, no worries, it will just test the rest. 
 
 When the check was succesfull, run `pi_calibration.py` on your PC with the empty-maze-plate still inserted. <br>
-It is recommended to run `pi_calibration.py` whenever something about the setup changed, or you suspect the camera might have moved a bit. Or just generally from time to time. 
+It is recommended to run `pi_calibration.py` before every session. It measures the relative position of the camera and adjusts it for lighting conditions. 
 
 ## Current progress and goals
 The sort of end goal is to come up with a solution/algorithm which will train on one or more given maze layout(s) for a fixed ammount of time. Then it will get a new maze layout it hasn't seen before and has to complete that in the minimum ammount of time. 
 
 ### Attempt 1 - SAC with 4 state variables
 *Not the first appempt, but the first one that sort of worked :)* <br>
-I used the RL (reinforcement learning) algorithm SAC (Soft Actor-Critic) to control the ball. The algorithm just gets the current ball position in the maze (x,y in 0...1), the current tilt angle of the maze ($\theta_x$, $\theta_y$ in -1...1), and a reward. It then can change the two angles up to a maximum of a fixed portion of the max-angle. It gets a reward if the current position is further trough the maze than it was before in this episode. It gets punished/negative reward for falling in a hole and then some smaller adjustments. 
+I used the RL (reinforcement learning) algorithm SAC (Soft Actor-Critic) to control the ball. The algorithm just gets the current ball position in the maze (x,y in 0...1), the current tilt angle of the maze ($\theta_x$, $\theta_y$ in -1...1), and a reward. It then can change the two angles up to a maximum of a fixed portion of the max-angle. It gets a reward if the current position is further trough the maze than it was before in this episode. It gets punished/negative reward for falling in a hole and then some smaller adjustments. <br>
+After a few hours of training it made some progress and got about a 4th of the way through the maze. But there is little hope of generalization with this attempt. 
 
-### Attempt 2 - SAC with CNN + 4 variables state-space
-...
+### Attempt 2 - SAC with CNN + 2 variables state-space
+As in Attempt 1, but the position (x,y) was replaced by a 29x29px, 3 channel image of the balls surroundings, centered on the ball. The first two channels are one-hot encoded positions of the holes and walls. The third channel is the progress trough the maze from 1 at the start to 255 at the end, where holes and walls have values of 0. <br>
+This ...
 
 ### Attempt 3 - Fitting a dynamics model and training in simulation
-...
+With the empty-maze-plate ...
 
 
 
