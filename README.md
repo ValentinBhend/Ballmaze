@@ -57,37 +57,73 @@ I used a RaspberryPi Zero 2w, so Pi 3,4 or 5 should work too. Or any other singl
 A good tutorial to set up a RaspberryPi with PiOS to then communicate to your PC over your local Wi-Fi via SSH can be found here: [randomnerdtutorials.com/installing-raspbian-lite-enabling-and-connecting-with-ssh](https://randomnerdtutorials.com/installing-raspbian-lite-enabling-and-connecting-with-ssh/) (Skip steps 3 & 4 by already doing them in step 2 as it says. )<br>
 
 I'll here describe the steps to get my exact Pi software setup. If you have a different RaspberryPi that the zero 2w or in the future, it might not work exactly as is: <br>
-Do as it says in the tutorial linked above. Once you can connect to the Pi over the terminal, follow these steps: <br>
-- Choose the Pi OS **Legacy Light 64bit** version.
-
-![My image](images/my-image.png)
-
-
-
-
-
-
-I chose the PiOS Legacy Lite version, but if you haven't set up a RaspberryPi before maybe choose the non-Lite version so you have the option to connect a monitor, keyboard and mouse which makes it easier if something goes wrong. 
-
-If you can now connect to the Pi over SSH, next download a copy of this repo to your PC and copy/move the folder [Code_on_RaspberryPi](Code_on_RaspberryPi) onto the Pi. <br>
-There are a few different ways to do this, with the Terminal/Powershell on your PC that would be simply: <br>
-`scp -r path/on/your/PC/to/the/folder/Code_on_RaspberryPi USER@DEVICE.local:/home/USER` <br>
-(replace USER, DEVICE & path/on/your/PC/to/...) <br>
-Another way would be to copy the folder onto the SD card. 
-
-In the project folder on the Pi (e.g. /home/USER/Code_on_RaspberryPi) set up a Python venv (optional but recommended, [Read more about venv](https://docs.python.org/3/library/venv.html)). Then install the packages listed in requirements.txt with `pip install -r requirements.txt` in the project folder (with the venv enabled). <br> 
-
-For the hardware PWMs and PiCamera you have to edit the file /boot/config.txt on the Pi. Do this with: <br>
-`sudo nano /boot/config.txt` <br>
-Go to the bottom of the file and add the line(s): <br>
-dtoverlay=pwm-2chan # enables hardware PWM on pins GPIO_18, GPIO_19 (Pins 12, 35) <br>
-dtoverlay=vc4-kms-v3d,cma-320 # limits camera memory to 320MB, not required on e.g. a Pi 4/5
+Set up the Pi as it says in the tutorial linked above and choose the Pi OS **Legacy 64-bit Lite** version in the Pi Imager:
+![PiOS_selection](misc/PiOS_selection.png)
+Once you can connect to the Pi over the terminal, follow these steps: <br>
+- Open a SSH terminal on the Pi and check the OS version with the command:
+```bash
+uname -m
+```
+this should show: `aarch64`. If it shows `armv7l` you choose the 32bit version which will not work, rewrite the image onto the SD card with the 64bit version.<br>
+Then run:
+```bash
+cat /etc/os-release
+```
+This should show: (if not, the wrong version might have been selected in the Pi Imager)
+```plaintext
+PRETTY_NAME="Debian GNU/Linux 11 (bullseye)"
+NAME="Debian GNU/Linux"
+VERSION_ID="11"
+VERSION="11 (bullseye)"
+VERSION_CODENAME=bullseye
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+```
+- Also on the Pi, run the commands: (takes a rew minutes)
+```bash
+sudo apt update
+sudo apt -y upgrade
+sudo apt install -y libgl1
+sudo sed -i '1i\# enables hardware PWM on pins GPIO_18, GPIO_19 (Pins 12, 35)\ndtoverlay=pwm-2chan\n# limits camera memory to 320MB, not required on e.g. a Pi 4/5\ndtoverlay=vc4-kms-v3d,cma-320\n' /boot/config.txt
+sudo reboot
+```
+This restarts the Pi, connect to it again. 
+- Download this git repo to your PC (if not already done).
+- Copy the folder **Code_on_RaspberryPi** the the /home/USER directory on the Pi.<br>
+  USER and DEVICE are whatever you called them in the Pi imager, USER is `pi` by default.<br>
+  For this open a <ins>**termina/Powershell on your PC**</ins> and run:<br>
+```bash
+scp -r path/on/your/PC/to/the/folder/Code_on_RaspberryPi USER@DEVICE.local:/home/USER
+```
+Alternatively you can also copy the folder onto the SD card. 
+- Now back to the Pi SSH terminal, check if it has the `Code_on_RaspberryPi` folder by:
+```bash
+ls
+```
+this should show the folder: `Code_on_RaspberryPi`
+- Run these commands still in the current (`home/pi`) directory:
+```bash
+sudo apt install python3-picamera2 --no-install-recommends
+sudo apt install -y python3-venv
+cd Code_on_RaspberryPi
+python3 -m venv --system-site-packages .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install openvino opencv-python zmq rpi_hardware_pwm
+```
+It now shows `(.venv)` at the start of the line in the terminal, which indicated the venv is running ([Read more about venv](https://docs.python.org/3/library/venv.html)). Whenever you open a new terminal, go to the Code-folder with `cd Code_on_RaspberryPi` and activate the venv with `source .venv/bin/activate`. 
+- Run this Python script to check the installation:
+```bash
+python3 check_installation.py
+```
+It if gives any errors, read it and try re-running the installation commands it might correspond to. 
 
 ### Check setup
-Now slide the empty-maze-plate in and put a metal ball on it. Then run the script `check_everything_PC.py` on the PC together with `check_everything_Pi.py` on the Pi while connected to the same Wi-Fi. <br>
-If anything from the setup except the Pi and PC is missing, no worries, it will just test the rest. 
+Now slide the empty-maze-plate in and put a metal ball on it. Then run the script `python3 check_everything_PC.py` on the PC together with `python3 check_everything_Pi.py` on the Pi while connected to the same Wi-Fi.
 
-When the check was succesfull, run `pi_calibration.py` on your PC with the empty-maze-plate still inserted. <br>
+When the check was succesfull, run `python3 pi_calibration.py` on your PC with the empty-maze-plate still inserted. <br>
 It is recommended to run `pi_calibration.py` before every session. It measures the relative position of the camera and adjusts it for lighting conditions. 
 
 ## Current progress and goals
