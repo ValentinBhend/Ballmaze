@@ -55,6 +55,18 @@ I used a RaspberryPi Zero 2w, so Pi 3,4 or 5 should work too. Or any other singl
 - Connection to a PC (SSH over local Wi-Fi in my case, USB also possible)
 
 A good tutorial to set up a RaspberryPi with PiOS to then communicate to your PC over your local Wi-Fi via SSH can be found here: [randomnerdtutorials.com/installing-raspbian-lite-enabling-and-connecting-with-ssh](https://randomnerdtutorials.com/installing-raspbian-lite-enabling-and-connecting-with-ssh/) (Skip steps 3 & 4 by already doing them in step 2 as it says. )<br>
+
+I'll here describe the steps to get my exact Pi software setup. If you have a different RaspberryPi that the zero 2w or in the future, it might not work exactly as is: <br>
+Do as it says in the tutorial linked above. Once you can connect to the Pi over the terminal, follow these steps: <br>
+- Choose the Pi OS **Legacy Light 64bit** version.
+
+![My image](images/my-image.png)
+
+
+
+
+
+
 I chose the PiOS Legacy Lite version, but if you haven't set up a RaspberryPi before maybe choose the non-Lite version so you have the option to connect a monitor, keyboard and mouse which makes it easier if something goes wrong. 
 
 If you can now connect to the Pi over SSH, next download a copy of this repo to your PC and copy/move the folder [Code_on_RaspberryPi](Code_on_RaspberryPi) onto the Pi. <br>
