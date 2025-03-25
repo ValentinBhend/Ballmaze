@@ -111,7 +111,7 @@ cd Code_on_RaspberryPi
 python3 -m venv --system-site-packages .venv
 source .venv/bin/activate
 pip install --upgrade pip
-pip install openvino opencv-python zmq rpi_hardware_pwm scipy numpy==1.19.5
+pip install openvino==2025.0.0 opencv-python==4.11.0.86 zmq==0.0.0 rpi_hardware_pwm==0.2.2 scipy==1.10.1 numpy==1.19.5
 ```
 It now shows `(.venv)` at the start of the line in the terminal, which indicated the venv is running ([Read more about venv](https://docs.python.org/3/library/venv.html)). Whenever you open a new terminal, go to the Code-folder with `cd Code_on_RaspberryPi` and activate the venv with `source .venv/bin/activate`. 
 - Run this Python script to check the installation:
