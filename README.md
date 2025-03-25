@@ -105,13 +105,13 @@ ls
 this should show the folder: `Code_on_RaspberryPi`
 - Run these commands still in the current (`home/pi`) directory:
 ```bash
-sudo apt install python3-picamera2 --no-install-recommends
+sudo apt install -y python3-picamera2 --no-install-recommends
 sudo apt install -y python3-venv
 cd Code_on_RaspberryPi
 python3 -m venv --system-site-packages .venv
 source .venv/bin/activate
 pip install --upgrade pip
-pip install openvino opencv-python zmq rpi_hardware_pwm pip scikit-optimize
+pip install openvino opencv-python zmq rpi_hardware_pwm
 ```
 It now shows `(.venv)` at the start of the line in the terminal, which indicated the venv is running ([Read more about venv](https://docs.python.org/3/library/venv.html)). Whenever you open a new terminal, go to the Code-folder with `cd Code_on_RaspberryPi` and activate the venv with `source .venv/bin/activate`. 
 - Run this Python script to check the installation:
