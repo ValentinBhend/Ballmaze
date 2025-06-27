@@ -85,6 +85,7 @@ module straight_arch_camhole(){
     }
     
     translate([s/4+28,0,hc-20])
+    mirror([1,0,0])
     Cam_Top();
     //translate([s/2-12,12.5,hc-4])
     //cam();
@@ -92,3 +93,20 @@ module straight_arch_camhole(){
 
 straight_arch_camhole();
 //cam();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
