@@ -48,18 +48,21 @@ if not installed: `sudo apt install python3-venv` <br>
 Alternatively you can also install the Python packages manually.
 
 ### RaspberryPi setup
-I used a RaspberryPi Zero 2w, so Pi 3,4 or 5 should work too. Or any other single-board computer should work if it has the features I use from the RaspberryPi: <br>
+I used a RaspberryPi but any other single-board computer should work if it has these features: <br>
 - 2 Hardware PWMs to control the servos. (Software PWMs, at least on my Pi, don't work for servos under load)
 - Connection to the camera (Picam Zero v1.3 in my case)
-- Enough computation power to run 4fps object detection on at least 128x128px images.
-- Connection to a PC (SSH over local Wi-Fi in my case, USB also possible)
+- Connection to a PC (preferrably wired to reduce lag, alternatively SSH over local Wi-Fi)
 
 A good tutorial to set up a RaspberryPi with PiOS to then communicate to your PC over your local Wi-Fi via SSH can be found here: [randomnerdtutorials.com/installing-raspbian-lite-enabling-and-connecting-with-ssh](https://randomnerdtutorials.com/installing-raspbian-lite-enabling-and-connecting-with-ssh/) (Skip steps 3 & 4 by already doing them in step 2 as it says. )<br>
 
-I'll here describe the steps to get my exact Pi software setup. If you have a different RaspberryPi that the zero 2w or in the future, it might not work exactly as is: <br>
-Set up the Pi as it says in the tutorial linked above and choose the Pi OS **Legacy 64-bit Lite** version in the Pi Imager:
-![PiOS_selection](misc/PiOS_selection.png)
-Once you can connect to the Pi over the terminal, follow these steps: <br>
+I first used a the slower RaspberryPi Zero 2W and later switched to the RaspberryPi 5 because the image detection was too slow. I used a moderately sized deep-learning model to detect the ball. It should be possible to get it to work on the smaller & cheaper Pi Zero with a simpler and lighter model though. On the Pi Zero, the setup is a bit weird because of the out-of-date PiCamera package. So I'll describe the setups seperately:
+
+<table>
+  <tr>
+    <td valign="top" width="50%">
+
+### Pi Zero 2W setup
+Here I have chosen the `Legacy 64-bit Lite` (Debian GNU/Linux 11) version in the Pi Imager shown in the above linked tutorial. <br>
 - Open a SSH terminal on the Pi and check the OS version with the command:
 ```bash
 uname -m
@@ -86,16 +89,26 @@ BUG_REPORT_URL="https://bugs.debian.org/"
 sudo apt update
 sudo apt -y upgrade
 sudo apt install -y libgl1
-sudo sed -i '1i\# enables hardware PWM on pins GPIO_18, GPIO_19 (Pins 12, 35)\ndtoverlay=pwm-2chan\n# limits camera memory to 320MB, not required on e.g. a Pi 4/5\ndtoverlay=vc4-kms-v3d,cma-320\n' /boot/config.txt
+sudo sed -i \
+  '1i\
+# enables hardware PWM on pins GPIO_18, GPIO_19 (Pins 12, 35)\
+dtoverlay=pwm-2chan\
+# limits camera memory to 320MB, not required on e.g. a Pi 4/5\
+dtoverlay=vc4-kms-v3d,cma-320' \
+  /boot/config.txt
 sudo reboot
 ```
+
+Once you can connect to the Pi over the terminal, follow these steps: <br>
+
 This restarts the Pi, connect to it again. 
 - Download this git repo to your PC (if not already done).
 - Copy the folder **Code_on_RaspberryPi** the the /home/USER directory on the Pi.<br>
   USER and DEVICE are whatever you called them in the Pi imager, USER is `pi` by default.<br>
   For this open a <ins>**termina/Powershell on your PC**</ins> and run:<br>
 ```bash
-scp -r path/on/your/PC/to/the/folder/Code_on_RaspberryPi USER@DEVICE.local:/home/USER
+scp -r path/on/your/PC/to/the/folder/Code_on_RaspberryPi \
+USER@DEVICE.local:/home/USER
 ```
 Alternatively you can also copy the folder onto the SD card. 
 - Now back to the Pi SSH terminal, check if it has the `Code_on_RaspberryPi` folder by:
@@ -111,9 +124,68 @@ cd Code_on_RaspberryPi
 python3 -m venv --system-site-packages .venv
 source .venv/bin/activate
 pip install --upgrade pip
-pip install openvino==2025.0.0 opencv-python==4.11.0.86 zmq==0.0.0 rpi_hardware_pwm==0.2.2 scipy==1.10.1 numpy==1.19.5
+pip install openvino==2025.0.0 opencv-python==4.11.0.86 \
+zmq==0.0.0 rpi_hardware_pwm==0.2.2 scipy==1.10.1 numpy==1.19.5
 pip install numpy==1.19.5 scikit-optimize==0.9.0
 ```
+
+  </td>
+  <td valign="top" width="50%">
+
+### Pi 5 setup
+Here I have chosen the newest 64bit Pi OS with a GUI (Debian GNU/Linux 12) version in the Pi Imager shown in the above linked tutorial. The headless version would need manual installation of the camera driver, but the Pi 5 is fast enough to handle the unused GUI in the background.<br>
+- Open a SSH terminal on the Pi and check the OS version with the command:
+```bash
+uname -m
+```
+this should show: `...`. If it shows `...` you choose the 32bit version which will not work, rewrite the image onto the SD card with the 64bit version.<br>
+Then run:
+```bash
+cat /etc/os-release
+```
+This should show: (if not, the wrong version might have been selected in the Pi Imager)
+```plaintext
+...
+```
+
+- Also on the Pi, run the commands: (takes a rew minutes)
+```bash
+sudo apt update
+sudo apt -y upgrade
+sudo sed -i \
+  '1i\
+# enables hardware PWM on pins GPIO_18, GPIO_19 (Pins 12, 35)\
+dtoverlay=pwm-2chan\
+  /boot/config.txt
+sudo reboot
+```
+
+Once you can connect to the Pi over the terminal, follow these steps: <br>
+
+This restarts the Pi, connect to it again. 
+- Download this git repo to your PC (if not already done).
+- Copy the folder **Code_on_RaspberryPi** the the /home/USER directory on the Pi.<br>
+  USER and DEVICE are whatever you called them in the Pi imager, USER is `pi` by default.<br>
+  For this open a <ins>**termina/Powershell on your PC**</ins> and run:<br>
+```bash
+scp -r path/on/your/PC/to/the/folder/Code_on_RaspberryPi \
+USER@DEVICE.local:/home/USER
+```
+Alternatively you can also copy the folder onto the SD card. 
+- Now back to the Pi SSH terminal, check if it has the `Code_on_RaspberryPi` folder by:
+```bash
+ls
+```
+this should show the folder: `Code_on_RaspberryPi`
+- Run these commands still in the current (`home/pi`) directory:
+```bash
+...
+```
+
+  </td>
+  </tr>
+</table>
+
 It now shows `(.venv)` at the start of the line in the terminal, which indicated the venv is running ([Read more about venv](https://docs.python.org/3/library/venv.html)). Whenever you open a new terminal, go to the Code-folder with `cd Code_on_RaspberryPi` and activate the venv with `source .venv/bin/activate`. 
 - Run this Python script to check the installation:
 ```bash
