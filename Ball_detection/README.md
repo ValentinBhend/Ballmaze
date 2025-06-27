@@ -6,3 +6,7 @@ To train it differently or with another dataset, the whole trianing and exportin
 There are currently ~2000 labeled images with a ball and another ~3000 empty images. <br>
 The labeled dataset can be found at: [kaggle.com/datasets/valentinbhend/ballmaze-labeled-images](https://www.kaggle.com/datasets/valentinbhend/ballmaze-labeled-images) <br>
 The labels are axis-aligned bounding boxes of the metal ball and were made using Label Studio.
+
+On the RaspberryPi5, there will be a memory over unless you use the line:
+```ie.set_property("CPU", {"INFERENCE_NUM_THREADS": 1, "NUM_STREAMS": "1"})```
+I reported this issue, no idea why this is happening. 
