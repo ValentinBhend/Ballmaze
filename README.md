@@ -1,5 +1,7 @@
 # Ballmaze
-This project is showcased in ...add link to yt-video/channel...
+This project is showcased in this video:
+
+...add link to yt-video/channel...
 
 The goal is to automate playing the ballmaze dexterity game. There are quite a few challanges in this and a lot of things can be improved from the current solution. 
 
@@ -17,7 +19,7 @@ Most parts can be replaced by similar ones or whatever you might already have.
 
 | Part                                              | Price ($/€ approx) | Where to buy |
 |---------------------------------------------------|--------------------|--------------|
-| 1x RaspberryPi Zero 2W (or better)                | 15                 | [1](https://www.mouser.ch/ProductDetail/358-SC0721) |
+| 1x RaspberryPi Zero 2W (or better)*               | 15*                | [1](https://www.mouser.ch/ProductDetail/358-SC0721) |
 | 2x Servo (e.g. SER0050)                           | 5 (x2)             | [1](https://www.mouser.ch/ProductDetail/426-SER0050) |
 | 1x Pi Camera V1.3                                 | 7                  | [1](https://www.mouser.ch/ProductDetail/713-114110127) |
 | 1x Pi Camera Cable 300mm                          | 2                  | [1](https://www.mouser.ch/ProductDetail/358-SC1129) |
@@ -25,9 +27,11 @@ Most parts can be replaced by similar ones or whatever you might already have.
 | 1x 5V 2A+ USB charger (likely already got one)    | 5                  | [1](https://www.mouser.ch/ProductDetail/490-SWI10B-5-EW-I38) |
 | 1x USB Cable to power Pi (micro USB for Pi Zero)  | 2                  | [1](https://www.mouser.ch/ProductDetail/530-SC-2AMK003F) |
 | A few metal balls with diameter ~6mm              | 5                  | [1](https://www.amazon.com/0-236-Precision-Chrome-Steel-Bearing/dp/B07L8MLK2N) |
-| 3D printed Parts (~300g PLA/PETG)                 | 5 - 40             | [1](https://www.sculpteo.com) [2](https://craftcloud3d.com/) [3](https://jlc3dp.com/3d-printing-quote) |
+| 3D printed Parts (~300g PLA/PETG)                 | 5 - 40             | ... |
 | Some cables + soldering iron would be<br>useful to connect the servos (not required) |                    |  |
 | 2x Googly eyes (strictly required) |                    |  |
+
+*The latest version used a RaspberryPi 5 which is about 80€ with a cooler. But I'm working on getting it as fast on the Pi Zero. 
 
 *If you built this, please send me a link to where you bought the parts, so I can add them to the table.*
 
@@ -55,7 +59,7 @@ I used a RaspberryPi but any other single-board computer should work if it has t
 
 A good tutorial to set up a RaspberryPi with PiOS to then communicate to your PC over your local Wi-Fi via SSH can be found here: [randomnerdtutorials.com/installing-raspbian-lite-enabling-and-connecting-with-ssh](https://randomnerdtutorials.com/installing-raspbian-lite-enabling-and-connecting-with-ssh/) (Skip steps 3 & 4 by already doing them in step 2 as it says. )<br>
 
-I first used a the slower RaspberryPi Zero 2W and later switched to the RaspberryPi 5 because the image detection was too slow. I used a moderately sized deep-learning model to detect the ball. It should be possible to get it to work on the smaller & cheaper Pi Zero with a simpler and lighter model though. On the Pi Zero, the setup is a bit weird because of the out-of-date PiCamera package. So I'll describe the setups seperately:
+I first used a the slower RaspberryPi Zero 2W and later switched to the RaspberryPi 5 because the image detection was too slow. I used a moderately sized deep-learning model to detect the ball. It should be possible to get it to work on the smaller & cheaper Pi Zero with a simpler and lighter detection-algorithm though. On the Pi Zero, the setup is a bit weird because of the out-of-date PiCamera package. So I'll describe the setups seperately:
 
 <table>
   <tr>
@@ -145,7 +149,7 @@ cat /etc/os-release
 ```
 This should show: (if not, the wrong version might have been selected in the Pi Imager)
 ```plaintext
-...
+TODO...
 ```
 
 - Also on the Pi, run the commands: (takes a rew minutes)
@@ -179,7 +183,14 @@ ls
 this should show the folder: `Code_on_RaspberryPi`
 - Run these commands still in the current (`home/pi`) directory:
 ```bash
-...
+sudo apt install -y python3-picamera2
+sudo apt install -y python3-venv
+cd Code_on_RaspberryPi
+python3 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install openvino opencv-python zmq \
+rpi_hardware_pwm scipy numpy scikit-optimize
 ```
 
   </td>
@@ -194,9 +205,9 @@ python3 check_installation.py
 It if gives any errors, read it and try re-running the installation commands it might correspond to. 
 
 ### Check setup
-Now slide the empty-maze-plate in and put a metal ball on it. Then run the script `python3 check_everything_PC.py` on the PC together with `python3 check_everything_Pi.py` on the Pi while connected to the same Wi-Fi.
+*TODO, not implemented: Now slide the empty-maze-plate in and put a metal ball on it. Then run the script `python3 check_everything_PC.py` on the PC together with `python3 check_everything_Pi.py` on the Pi while connected to the same Wi-Fi.*
 
-When the check was succesfull, run `python3 pi_calibration.py` on your PC with the empty-maze-plate still inserted. <br>
+When the check was succesfull, run `python3 pi_calibration.py` on RaspberryPi with the empty-maze-plate still inserted. <br>
 It is recommended to run `pi_calibration.py` before every session. It measures the relative position of the camera and adjusts it for lighting conditions. 
 
 ## Current progress and goals
@@ -207,12 +218,15 @@ The sort of end goal is to come up with a solution/algorithm which will train on
 I used the RL (reinforcement learning) algorithm SAC (Soft Actor-Critic) to control the ball. The algorithm just gets the current ball position in the maze (x,y in 0...1), the current tilt angle of the maze ($\theta_x$, $\theta_y$ in -1...1), and a reward. It then can change the two angles up to a maximum of a fixed portion of the max-angle. It gets a reward if the current position is further trough the maze than it was before in this episode. It gets punished/negative reward for falling in a hole and then some smaller adjustments. <br>
 After a few hours of training it made some progress and got about a 4th of the way through the maze. But there is little hope of generalization with this attempt. 
 
-### Attempt 2 - SAC with CNN + 2 variables state-space
+### Attempt 2 - SAC with CNN + last few angles
 As in Attempt 1, but the position (x,y) was replaced by a 29x29px, 3 channel image of the balls surroundings, centered on the ball. The first two channels are one-hot encoded positions of the holes and walls. The third channel is the progress trough the maze from 1 at the start to 255 at the end, where holes and walls have values of 0. <br>
-This ...
+To give it some way to infer the current velocity, I also gave it the tilt angles of the last 20 (last 4 on the Pi Zero) moves (last 0.3s). <br>
+This sort of worked with the Pi Zero at 5 fps. When I upgraded to the Pi 5, it worked really well. <br>
+It still needed to train for around 30h to get to where it is shown in the video. Though almost half of the time was my PC doing the learning from the replay buffer and the reset-sequence is slow and unreliable. 
 
-### Attempt 3 - Fitting a dynamics model and training in simulation
-With the empty-maze-plate ...
-
-
-
+### Further plans
+- Write a simulation to pretrain a model.
+- Pretrain the CNN as part of an autoencoder.
+- Make a proper hyperparameter sweep, including the reward-structure.
+- Use (implicit) meta-learning to train on different maze layouts and/or with different builds (an algorithm trained on one build/setup might not work on another because of slight imprecisions).
+- Cut some costs: Smaller servo motors, cheaper camera, working (faster) Pi Zero setup, ... -> Then build more of them to train in parallel.
