@@ -11,6 +11,10 @@ The goal is to automate playing the ballmaze dexterity game. There are quite a f
   <img src="./misc/my_maze.gif" width="45%" />
 </p>
 
+This is what it can do currently with roughly 50h of (real-world only) training:
+
+![gif_own](misc/gif_own.gif)
+
 ## Want to build one yourself?
 It's still a work in progress but it works. Some previous experience with a RaspberryPi or similar and a little experience in programming in Python would surely help. And of couse a great interest in robotics/control/machine learning :) <br>
 In total the materials cost about 50 - 90 $/€ depending on whether you or someone you know has a 3D printer, or you have to order the 3D printed parts from somewhere. 
@@ -211,23 +215,10 @@ It if gives any errors, read it and try re-running the installation commands it 
 When the check was succesfull, run `python3 pi_calibration.py` on RaspberryPi with the empty-maze-plate still inserted. <br>
 It is recommended to run `pi_calibration.py` before every session. It measures the relative position of the camera and adjusts it for lighting conditions. 
 
-## Current progress and goals
-The sort of end goal is to come up with a solution/algorithm which will train on one or more given maze layout(s) for a fixed ammount of time. Then it will get a new maze layout it hasn't seen before and has to complete that in the minimum ammount of time. 
-
-### Attempt 1 - SAC with 4 state variables
-*Not the first appempt, but the first one that sort of worked :)* <br>
-I used the RL (reinforcement learning) algorithm SAC (Soft Actor-Critic) to control the ball. The algorithm just gets the current ball position in the maze (x,y in 0...1), the current tilt angle of the maze ($\theta_x$, $\theta_y$ in -1...1), and a reward. It then can change the two angles up to a maximum of a fixed portion of the max-angle. It gets a reward if the current position is further trough the maze than it was before in this episode. It gets punished/negative reward for falling in a hole and then some smaller adjustments. <br>
-After a few hours of training it made some progress and got about a 4th of the way through the maze. But there is little hope of generalization with this attempt. 
-
-### Attempt 2 - SAC with CNN + last few angles
-As in Attempt 1, but the position (x,y) was replaced by a 29x29px, 3 channel image of the balls surroundings, centered on the ball. The first two channels are one-hot encoded positions of the holes and walls. The third channel is the progress trough the maze from 1 at the start to 255 at the end, where holes and walls have values of 0. <br>
-To give it some way to infer the current velocity, I also gave it the tilt angles of the last 20 (last 4 on the Pi Zero) moves (last 0.3s). <br>
-This sort of worked with the Pi Zero at 5 fps. When I upgraded to the Pi 5, it worked really well. <br>
-It still needed to train for around 30h to get to where it is shown in the video. Though almost half of the time was my PC doing the learning from the replay buffer and the reset-sequence is slow and unreliable. 
-
-### Further plans
+## Further plans
 - Write a simulation to pretrain a model.
 - Pretrain the CNN as part of an autoencoder.
 - Make a proper hyperparameter sweep, including the reward-structure.
 - Use (implicit) meta-learning to train on different maze layouts and/or with different builds (an algorithm trained on one build/setup might not work on another because of slight imprecisions).
 - Cut some costs: Smaller servo motors, cheaper camera, working (faster) Pi Zero setup, ... -> Then build more of them to train in parallel.
+- Make some more games in the same style and reuse most of the hardware. 
