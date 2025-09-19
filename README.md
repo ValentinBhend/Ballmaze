@@ -1,7 +1,7 @@
 # Ballmaze
 This project is showcased in this video:
 
-[![thumbnail_yt](misc/thumbnail_yt.png)](https://img.youtube.com/vi/cLjqs_h8txE/0.jpg)](https://www.youtube.com/watch?v=cLjqs_h8txE)
+[![thumbnail_yt](misc/thumbnail_yt.png)](https://www.youtube.com/watch?v=cLjqs_h8txE)
 
 The goal is to automate playing the ballmaze dexterity game. There are quite a few challanges in this and a lot of things can be improved from the current solution. 
 
